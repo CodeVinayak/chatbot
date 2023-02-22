@@ -27,7 +27,7 @@
     "dev:server": "nodemon server/index.js",
     "build": "cd client && npm run build",
     "start:all": "concurrently \"npm run start\" \"npm run dev:client\"",
-    "build:client": "cd client && npm run build",
-    "build:server": "cd server && npm run build"
+    "build:client": "cd client && vite build --out ../build",
+    "build:server": "cd server && vite build --out ../build"
   }
 }
