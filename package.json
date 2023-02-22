@@ -11,6 +11,7 @@
       "react": "^18.2.0",
       "react-dom": "^18.2.0"
     },
+      
     "devDependencies": {
       "@types/react": "^18.0.26",
       "@types/react-dom": "^18.0.9",
@@ -20,9 +21,14 @@
       "vite": "^4.0.0"
     },
     "scripts": {
-      "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run start\" ",
-      "build": "cd client && vite build --outDir ../dist",
-      "start": "node server/index.js"
+      "start": "node server/index.js",
+      "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+      "dev:client": "cd client && npm run dev",
+      "dev:server": "nodemon server/index.js",
+      "build": "cd client && npm run build",
+      "start:all": "concurrently \"npm run start\" \"npm run dev:client\"",
+      "build:client": "cd client && npm run build",
+      "build:server": "cd server && npm run build"
     }
   }
   

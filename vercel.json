@@ -1,21 +1,24 @@
 {
     "version": 2,
     "builds": [
-      { "src": "client/package.json", "use": "@vercel/static-build" },
-      { "src": "server/index.js", "use": "@vercel/node" }
+      {
+        "src": "client/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "client/build"
+        }
+      },
+      {
+        "src": "server/index.js",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "server/index.js" }
+      { "src": "/api/.*", "dest": "server/index.js" },
+      { "src": "/(.*)", "dest": "client/build/$1" }
     ],
     "env": {
       "NODE_ENV": "production"
-    },
-    "scripts": {
-      "build": "cd client && npm install && npm run build",
-      "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-      "dev:client": "cd client && npm run dev",
-      "dev:server": "nodemon server/index.js",
-      "start": "node server/index.js"
     }
   }
   
