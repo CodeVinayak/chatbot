@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon src/index.js"
+    "dev": "npm install && npx nodemon src/index.js"
   },
   "keywords": [],
   "author": "",

@@ -20,7 +20,6 @@
     "vite": "^4.0.0"
   },
   "scripts": {
-    "install": "npm install",
     "dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run dev\" ",
     "build": "cd client && vite build --outDir ../dist",
     "start": "node server/index.js"
