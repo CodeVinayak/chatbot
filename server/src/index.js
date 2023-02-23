@@ -70,6 +70,14 @@ const openai = new OpenAIApi(configuration);
 // Enable CORS
 app.use(cors());
 
+//
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://chatbot.vinayaksingh.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 // Set up JSON parsing middleware
 app.use(express.json());
 
