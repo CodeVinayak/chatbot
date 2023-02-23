@@ -2,7 +2,7 @@ module.exports = function (app) {
     app.use(
         '​/api',
         createProxyMiddleware({
-            target: 'https://www.chatbot.vinayaksingh.com',
+            target: 'https://chatbot.vinayaksingh.com',
             changeOrigin: true,
         })
     );

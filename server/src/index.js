@@ -1,24 +1,11 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const { Configuration, OpenAIApi } = require("openai");
 const express = require('express');
 const cors = require('cors');
+const chatRouter = require('./chat'); // Import the chat.js file
+
 const app = express();
 
-// Set up OpenAI configuration and API
-const OPENAI_API_KEY = "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";
-const configuration = new Configuration({
-  apiKey: OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
-
-// Enable CORS
-app.use(cors({
-  // allow_origin: ["*"],
-  origin: '*',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allow_headers: ["*"]
-  // allowedHeaders: ["Content-Type", "Authorization"],
-}));
+// Set up CORS middleware
+app.use(cors());
 
 // Set up JSON parsing middleware
 app.use(express.json());
@@ -29,37 +16,7 @@ app.get("/ping", (req, res) => {
   });
 });
 
-// Define your API endpoint
-app.post('/chat', (req, res) => {
-  const question = req.body.question;
-
-  openai
-    .createCompletion({
-      model: "text-davinci-003",
-      prompt: question,
-      max_tokens: 4000,
-      temperature: 0,
-    })
-    .then((response) => {
-      console.log({ response });
-      return response?.data?.choices?.[0]?.text;
-    })
-    .then((answer) => {
-      console.log({ answer });
-      const array = answer
-        ?.split("\n")
-        .filter((value) => value)
-        .map((value) => value.trim());
-
-      return array;
-    })
-    .then((answer) => {
-      res.json({
-        answer: answer,
-        propt: question,
-      });
-    });
-  console.log({ question });
-});
+// Use the chatRouter as middleware for the /chat endpoint
+app.use('/chat', chatRouter);
 
 module.exports = app;
