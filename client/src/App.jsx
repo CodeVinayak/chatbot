@@ -19,16 +19,14 @@ function App() {
     updateQNA(YOU, question);
 
     setLoading(true);
-    axios
-      .post("http://www.chatbot.vinayaksingh.com/chat", {
-        question,
-      })
-      .then((response) => {
-        updateQNA(AI, response.data.answer);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    axios.post('/api/chat', {
+      question,
+    }).then((response) => {
+      updateQNA(AI, response.data.answer);
+    })
+    .finally(() => {
+      setLoading(false);
+    });    
   };
 
   const renderContent = (qna) => {
