@@ -16,18 +16,13 @@ const openai = new OpenAIApi(configuration);
 app.use(
   cors({
     origin:"*",
-    methods:["Get","POST","PUT","DELETE"]
-})
+    methods:["GET","POST","PUT","DELETE"],
+    allowedHeaders: ["Content-Type"]
+  })
 );
 
 // Set up JSON parsing middleware
 app.use(express.json());
-
-// // Proxy requests to Vercel serverless functions
-// app.use('/api', createProxyMiddleware({ 
-//   target: 'https://www.chatbot.vinayaksingh.com', // Change this to your Vercel domain
-//   changeOrigin: true 
-// }));
 
 
 app.get("/ping", (req, res) => {
