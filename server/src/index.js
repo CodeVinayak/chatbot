@@ -80,7 +80,7 @@ app.use('/api', createProxyMiddleware({
 }));
 
 // Define your API endpoint
-app.post('/chat', (req, res) => {
+app.post('', (req, res) => {
   const question = req.body.question;
 
   openai
