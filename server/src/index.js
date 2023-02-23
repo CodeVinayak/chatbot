@@ -7,11 +7,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-app.use(cors({
-  origin: 'https://www.chatbot.vinayaksingh.com/'
-}));
-
-
 const app = express();
 app.use(cors());
 

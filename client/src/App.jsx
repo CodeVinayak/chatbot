@@ -19,7 +19,7 @@ function App() {
     updateQNA(YOU, question);
 
     setLoading(true);
-    axios.post(' https://www.chatbot.vinayaksingh.com/chat', {
+    axios.post(' http://localhost:3000/chat', {
       question,
     }).then((response) => {
       updateQNA(AI, response.data.answer);
