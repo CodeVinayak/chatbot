@@ -2,7 +2,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const { Configuration, OpenAIApi } = require("openai");
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
 
 // Set up OpenAI configuration and API
@@ -14,9 +13,11 @@ const openai = new OpenAIApi(configuration);
 
 // Enable CORS
 app.use(cors({
-  origin: "*",
+  // allow_origin: ["*"],
+  origin: '*',
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allow_headers: ["*"]
+  // allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 // Set up JSON parsing middleware
