@@ -115,80 +115,92 @@ function App() {
     updateQNA(YOU, question);
 
     setLoading(true);
-    axios.post('/api/chat', {
+    axios.post('', {
       question,
     }, {
       baseURL: 'https://www.chatbot.vinayaksingh.com', // Replace with your server URL
     }).then((response) => {
       updateQNA(AI, response.data.answer);
     })
-    .finally(() => {
-      setLoading(false);
-    });    
-  };
+      .finally(() => {
+        setLoading(false);
+      });
 
-  const renderContent = (qna) => {
-    const value = qna.value;
+    //   setLoading(true);
+    //   axios.post('/api/chat', {
+    //     question,
+    //   }, {
+    //     baseURL: 'https://www.chatbot.vinayaksingh.com', // Replace with your server URL
+    //   }).then((response) => {
+    //     updateQNA(AI, response.data.answer);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });    
+    };
 
-    if (Array.isArray(value)) {
-      return value.map((v) => <p className="message-text">{v}</p>);
-    }
+    const renderContent = (qna) => {
+      const value = qna.value;
 
-    return <p className="message-text">{value}</p>;
-  };
-  return (
-    <main class="container">
-      <div class="chats">
-        {qna.map((qna) => {
-          if (qna.from === YOU) {
+      if (Array.isArray(value)) {
+        return value.map((v) => <p className="message-text">{v}</p>);
+      }
+
+      return <p className="message-text">{value}</p>;
+    };
+    return (
+      <main class="container">
+        <div class="chats">
+          {qna.map((qna) => {
+            if (qna.from === YOU) {
+              return (
+                <div class="send chat">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
+                    alt=""
+                    class="avtar"
+                  />
+                  <p>{renderContent(qna)}</p>
+                </div>
+              );
+            }
             return (
-              <div class="send chat">
+              <div class="recieve chat">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
+                  src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
                   alt=""
                   class="avtar"
                 />
                 <p>{renderContent(qna)}</p>
               </div>
             );
-          }
-          return (
+          })}
+
+          {loading && (
             <div class="recieve chat">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
                 alt=""
                 class="avtar"
               />
-              <p>{renderContent(qna)}</p>
+              <p>Typing...</p>
             </div>
-          );
-        })}
+          )}
+        </div>
 
-        {loading && (
-          <div class="recieve chat">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
-              alt=""
-              class="avtar"
-            />
-            <p>Typing...</p>
-          </div>
-        )}
-      </div>
+        <div class="chat-input">
+          <input
+            type="text"
+            ref={inputRef}
+            class="form-control col"
+            placeholder="Type Something"
+          />
+          <button disabled={loading} class="btn btn-success" onClick={handleSend}>
+            Send
+          </button>
+        </div>
+      </main>
+    );
+  }
 
-      <div class="chat-input">
-        <input
-          type="text"
-          ref={inputRef}
-          class="form-control col"
-          placeholder="Type Something"
-        />
-        <button disabled={loading} class="btn btn-success" onClick={handleSend}>
-          Send
-        </button>
-      </div>
-    </main>
-  );
-}
-
-export default App;
+  export default App;
