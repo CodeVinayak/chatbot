@@ -23,6 +23,9 @@ function App() {
       question,
     }, {
       baseURL: 'https://www.chatbot.vinayaksingh.com', // Replace with your server URL
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }).then((response) => {
       updateQNA(AI, response.data.answer);
     })
@@ -30,7 +33,7 @@ function App() {
         setLoading(false);
       }); 
     };
-
+    
     const renderContent = (qna) => {
       const value = qna.value;
 

@@ -13,13 +13,12 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // Enable CORS
-app.use(
-  cors({
-    origin:"*",
-    methods:["GET","POST","PUT","DELETE"],
-    allowedHeaders: ["Content-Type"]
-  })
-);
+app.use(cors({
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
 
 // Set up JSON parsing middleware
 app.use(express.json());
