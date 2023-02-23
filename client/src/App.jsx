@@ -115,7 +115,7 @@ function App() {
     updateQNA(YOU, question);
 
     setLoading(true);
-    axios.post('', {
+    axios.post('/chat', {
       question,
     }, {
       baseURL: 'https://www.chatbot.vinayaksingh.com', // Replace with your server URL

@@ -68,27 +68,31 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 // Enable CORS
-app.use(cors());
-
-//
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://chatbot.vinayaksingh.com");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
+app.use(
+  cors({
+    origin:"http://www.chatbot.vinayaksingh.com",
+    methods:["Get","POST","PUT","DELETE"]
+})
+);
 
 // Set up JSON parsing middleware
 app.use(express.json());
 
-// Proxy requests to Vercel serverless functions
-app.use('/api', createProxyMiddleware({ 
-  target: 'https://www.chatbot.vinayaksingh.com', // Change this to your Vercel domain
-  changeOrigin: true 
-}));
+// // Proxy requests to Vercel serverless functions
+// app.use('/api', createProxyMiddleware({ 
+//   target: 'https://www.chatbot.vinayaksingh.com', // Change this to your Vercel domain
+//   changeOrigin: true 
+// }));
+
+
+app.get("/ping", (req, res) => {
+  res.json({
+    message: "pong",
+  });
+});
 
 // Define your API endpoint
-app.post('', (req, res) => {
+app.post('/chat', (req, res) => {
   const question = req.body.question;
 
   openai
