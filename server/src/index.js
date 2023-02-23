@@ -19,10 +19,8 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-
 // Set up JSON parsing middleware
 app.use(express.json());
-
 
 app.get("/ping", (req, res) => {
   res.json({
