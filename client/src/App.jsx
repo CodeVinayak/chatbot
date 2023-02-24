@@ -20,7 +20,8 @@ function App() {
 
     setLoading(true);
     axios
-      .post("https://chatbot.vinayaksingh.com/chat", {
+      .post("http://localhost:3000/chat", {
+      // .post("https://chatbot.vinayaksingh.com/chat", {
         question,
       })
       .then((response) => {

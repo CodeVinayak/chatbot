@@ -4,6 +4,16 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+const dotenv = require("dotenv");
+
+dotenv.config(); // Load environment variables from .env file
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
 // Add CORS headers
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -17,13 +27,6 @@ app.use(cors({
   allow_headers: '*',
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
 }));
-
-// Set up OpenAI configuration and API
-const OPENAI_API_KEY = "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";
-const configuration = new Configuration({
-  apiKey: OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 // Set up JSON parsing middleware
 app.use(express.json());
